@@ -37,7 +37,7 @@ if let content = EventLogger.shared.readLog(for: "Init") {
 }
 
 
-class MyTestClass : XCTestCase{
+class MyTestClass : XCTestCase {
     func testConcurrency() {
         measure {
             let concurrentQueue = DispatchQueue(label: "com.event.log", attributes: [.concurrent])

@@ -2,8 +2,8 @@
 <playground version='6.0' target-platform='ios' buildActiveScheme='true' importAppTypes='true'>
     <pages>
         <page name='ParreleProgramming '/>
-        <page name='LinkedInAssesment'/>
-        <page name='Untitled Page'/>
+        <page name='Weak_Unowned'/>
+        <page name='Protocols_Generics'/>
         <page name='ContiguousArray'/>
         <page name='Lazy'/>
         <page name='Singleton'/>
