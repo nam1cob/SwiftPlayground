@@ -7,5 +7,7 @@
         <page name='ContiguousArray'/>
         <page name='Lazy'/>
         <page name='Singleton'/>
+        <page name='MVVM'/>
+        <page name='PropertyWrappers'/>
     </pages>
 </playground>

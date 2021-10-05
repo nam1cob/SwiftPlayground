@@ -8,19 +8,86 @@ PlaygroundPage.current.needsIndefiniteExecution = true
 
 
 
+struct Struct1 {
+    
+}
 
+struct Struct2 {
+    
+}
 
 protocol P2 {
     associatedtype PluginType
     
     func func1() -> [PluginType]
-    func devour(param: PluginType)
+    func func2(param: PluginType) -> Void
 }
+
+extension P2 {
+    
+}
+
+class C3 : P2 {
+    func func1() -> [Struct1] {
+        return [Struct1()]
+    }
+    func func2(param: Struct1) {
+        
+    }
+}
+
+
+class C4 : P2 {
+    func func1() -> [Struct2] {
+        return [Struct2()]
+    }
+    func func2(param: Struct2) {
+        
+    }
+}
+
+
+class Container<T> : P2  {
+    private let _func1 : () -> [T]
+    private let _func2 : (T) -> Void
+    
+    
+    required init<U : P2>(protooclType: U) where U.PluginType == T {
+        _func1 = protooclType.func1
+        _func2 = protooclType.func2
+    }
+    
+    func func1() -> [T] {
+        return _func1()
+    }
+    
+    func func2(param: T) {
+        func2(param: param)
+    }
+}
+
+let container = Container<Struct2>(protooclType: C4())
+let container1 = Container<Struct1>(protooclType: C3())
+
+//let containerCollection : [Container<C4>] = [] // It can create an array of protocol with associated type.
+
+func containerFunction<T: P2>(value: T) -> T { // We can upadte pass / return protocol with associated type under generic constrain.
+    return C4() as! T
+}
+
+
+//let protocolObj : P2 = C4() // This is not prossible.
+
+// IMPORTANT -> Why can't we use generic protocols outside of generic constraints?
+// Swift is type safe - It need to infer concrete type during the time of compilation.
+
+
+
 
 // Protocol is only generic if the Self will be used for
 // associatedtype element : Self // Make the protocol generic
-// func holdAMeetingWithTheClan(clan: [Self]) -> Void // Make the protocol generic
-// func doesNotMakeProtocolGeneric() -> Self // Does not make protocol generic
+// func holdAMeetingWithTheClan(clan: [Self]) -> Void // Make the protocol generic ( NOT completely true. see above.)
+// func doesNotMakeProtocolGeneric() -> Self // Does not make protocol generic ( NOT completely true. see above.)
 
 protocol P1 {
     func foo1(obj : Self) -> Void
